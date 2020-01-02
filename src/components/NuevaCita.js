@@ -1,6 +1,17 @@
 import React from "react";
 import uuid from "uuid";
 
+const stateInicial = {
+  cita: {
+    mascota: "",
+    propietario: "",
+    fecha: "",
+    hora: "",
+    sintomas: ""
+  },
+  error: false
+};
+
 class NuevaCita extends React.Component {
   state = {
     cita: {
@@ -47,16 +58,17 @@ class NuevaCita extends React.Component {
     }
     // generar objeto con los datos
     const nuevaCita = { ...this.state.cita };
-    nuevaCita.id = uuid;
+    nuevaCita.id = uuid();
 
     // agregar la cita al state de App
     this.props.crearNuevaCita(nuevaCita);
+
+    this.setState({
+      ...stateInicial
+    });
   };
 
   render() {
-    // extraer valor del state
-    const { error } = this.state.error;
-
     return (
       <div className="card mt-5 py-5">
         <div className="card-body">
